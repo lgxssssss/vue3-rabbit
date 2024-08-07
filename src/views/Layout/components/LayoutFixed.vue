@@ -1,5 +1,8 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
+import { useCategoryStore } from '@/stores/categoryStore'
+const categoryStore = useCategoryStore()
+
 const { y } = useScroll(window)
 
 </script>
@@ -9,36 +12,9 @@ const { y } = useScroll(window)
     <div class="container">
       <RouterLink class="logo" to="/" />
       <ul class="app-header-nav ">
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-            <RouterLink to="/">严选</RouterLink>
-        </li>
+        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
+        <RouterLink to="/">{{ item.name }}</RouterLink>
+      </li>
       </ul>
       <div class="right">
         <RouterLink to="/">品牌</RouterLink>
