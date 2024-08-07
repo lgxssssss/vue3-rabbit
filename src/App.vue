@@ -4,9 +4,6 @@
 
 <template>
   <RouterView></RouterView>
-  <div class="test">
-    sdfasdfg
-  </div>
 </template>
 
 <style scoped lang="scss">

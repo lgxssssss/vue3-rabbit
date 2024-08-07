@@ -1,7 +1,16 @@
+<script setup>
+
+import LayoutNav from './components/LayoutNav.vue'
+import LayoutHeader from './components/LayoutHeader.vue'
+import LayoutFooter from './components/LayoutFooter.vue'
+
+</script>
+
 <template>
-    <div>
-        我是首页
-        <!-- 二级路由出口 -->
-         <RouterView></RouterView>
-        </div>
+  <LayoutNav />
+  <LayoutHeader />
+  <!-- 添加key 破坏复用机制 强制销毁重建 -->
+  <!-- <RouterView :key="$route.fullPath" /> -->
+  <RouterView />
+  <LayoutFooter />
 </template>
