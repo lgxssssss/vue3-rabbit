@@ -1,44 +1,10 @@
 <script setup>
-
-import { getCategoryAPI } from'@/apis/category'
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { getBannerAPI } from '@/apis/home'
 import GoodsItem from '@/views/Home/components/GoodsItem.vue';
-import { onBeforeRouteUpdate } from 'vue-router';
+import { useBanner } from './composables/useBanner'
+import { useCategory } from './composables/useCategory';
 
-const route = useRoute()
-const categoryData = ref({})
-const getCategory = async (id = route.params.id) => {
-    const res = await getCategoryAPI(id)
-    categoryData.value = res.result
-}
-onMounted(() =>getCategory())
-
-//目标路由发生变化的时候，可以把分类数据重新发送
-onBeforeRouteUpdate((to) => {
-  console.log('路由变化了');
-  //存在问题：使用最新的路由参数请求最新的分类数据
-  console.log(to);
-  getCategory(to.params.id)
-  
-})
-
-//获取banner
-const bannerList = ref([])
-
-const getBanner = async() => {
-    const res = await getBannerAPI({
-        distributionSite: '2'
-    })
-    bannerList.value = res.result
-}
-onMounted(() => getBanner())
-
-//watch也能行,感觉跟视频中的一样有优解
-// watch (route, () => {
-//   getCategory()
-// })
+const { bannerList } = useBanner()
+const { categoryData } = useCategory()
 
 </script>
 
