@@ -14,7 +14,10 @@ const rules = {
     ],
     password: [
     { required: true, message:'密码不能为空', trigger:'blur' },
-    {min: 6, max: 14, message: '密码长度为6-14个字符', trigger: 'blur'}
+    {
+        pattern: /^\S{6,15}$/,
+        message: '密码必须是 6-15位 的非空字符',
+        trigger: 'blur'}
     ],
     agree: [
         {
@@ -30,6 +33,24 @@ const rules = {
         }
     ]
 } 
+
+const formRef = ref()
+const doLogin = async () => {
+    //调用实例方法
+    // formRef.value.validate((valid) => {
+
+    // })
+    formRef.value.validate(async (valid) => {
+    // valid: 所有表单都通过校验  才为true
+    console.log(valid)
+    // 以valid做为判断条件 如果通过校验才执行登录逻辑
+    if (valid) {
+      // TODO LOGIN
+    }
+  })
+}
+
+
 
 </script>
 
@@ -55,7 +76,7 @@ const rules = {
         </nav>
         <div class="account-box">
           <div class="form">
-            <el-form :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
+            <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
               <el-form-item prop="account" label="账户">
                 <el-input v-model="form.account"/>
               </el-form-item>
@@ -67,7 +88,7 @@ const rules = {
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
             </el-form>
           </div>
         </div>
