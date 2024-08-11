@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import { loginAPI } from '@/apis/user.js'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user';
+
+
+const userStore = useUserStore()
 
 const form = ref({
     account: '',
@@ -45,7 +48,7 @@ const doLogin = async () => {
     console.log(valid)
     // 以valid做为判断条件 如果通过校验才执行登录逻辑
     if (valid) {
-      await loginAPI({ account , password})
+      await userStore.getUserInfo({account, password})
       ElMessage.success('登录成功')
       router.replace('/')
     }
