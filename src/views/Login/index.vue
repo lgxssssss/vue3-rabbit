@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-
+import { loginAPI } from '@/apis/user.js'
+import { useRouter } from 'vue-router'
 
 const form = ref({
     account: '',
@@ -35,17 +36,18 @@ const rules = {
 } 
 
 const formRef = ref()
+const router = useRouter()
 const doLogin = async () => {
+    const { account , password} = form.value
     //调用实例方法
-    // formRef.value.validate((valid) => {
-
-    // })
     formRef.value.validate(async (valid) => {
     // valid: 所有表单都通过校验  才为true
     console.log(valid)
     // 以valid做为判断条件 如果通过校验才执行登录逻辑
     if (valid) {
-      // TODO LOGIN
+      await loginAPI({ account , password})
+      ElMessage.success('登录成功')
+      router.replace('/')
     }
   })
 }
@@ -78,10 +80,10 @@ const doLogin = async () => {
           <div class="form">
             <el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="60px" status-icon>
               <el-form-item prop="account" label="账户">
-                <el-input v-model="form.account"/>
+                <el-input type="text" v-model="form.account"/>
               </el-form-item>
               <el-form-item prop="password" label="密码">
-                <el-input v-model="form.password"/>
+                <el-input type="password" v-model="form.password"/>
               </el-form-item>
               <el-form-item prop="agree" label-width="22px">
                 <el-checkbox v-model="form.agree" size="large">
