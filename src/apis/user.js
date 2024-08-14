@@ -12,7 +12,7 @@ export const loginAPI = ({ account, password }) => {
   })
 }
 
-
+//猜你喜欢接口
 export const getLikeListAPI = ({ limit = 4 }) => {
   return request({
     url: '/goods/relevant',
